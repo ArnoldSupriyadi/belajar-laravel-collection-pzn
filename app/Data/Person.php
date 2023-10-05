@@ -2,7 +2,7 @@
 
 namespace App\Data;
 
-class person
+class Person
 {
     var string $name;
 
