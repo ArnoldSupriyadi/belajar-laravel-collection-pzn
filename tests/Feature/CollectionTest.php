@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Data\person;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -35,4 +36,23 @@ class CollectionTest extends TestCase
         assertEquals(3, $result);
         assertEqualsCanonicalizing([1,2], $collection->all());
     }
+
+    public function testMap()
+    {
+        $collection = collect([1,2,3]);
+        $result = $collection->map(function ($item){
+            return $item * 2;
+        });
+
+        $this->assertEqualsCanonicalizing([2,4,6], $result->all());
+    }
+
+    public function testMapInto()
+    {
+        $collection = collect(["Eko"]);
+        $result = $collection->mapInto(Person::class);
+        $this->assertEquals([new Person("Eko")], $result->all());
+        
+    }
+
 }
